@@ -1,0 +1,24 @@
+FROM registry.redhat.io/jboss-eap-7/eap73-openjdk11-openshift-rhel8:latest
+
+USER root
+
+ENV JBOSS_HOME /opt/eap
+ENV DEPLOYMENT_DIR ${JBOSS_HOME}/standalone/deployments
+
+# create JBoss console user
+RUN $JBOSS_HOME/bin/add-user.sh admin Admin1234! --silent
+# configure JBoss
+#RUN echo "JAVA_OPTS=\"\$JAVA_OPTS -Djboss.bind.address=0.0.0.0 -Djboss.bind.address.management=0.0.0.0\"" >> $JBOSS_HOME/bin/standalone.conf
+
+# deploy app
+ADD testrest.war "$DEPLOYMENT_DIR/"
+#COPY ./target/testrest.war ${DEPLOYMENT_DIR}
+
+USER jboss
+
+# JBoss ports
+EXPOSE 8080 9990 9999
+
+# Set the default command to run on boot
+# This will boot JBoss in the standalone mode and bind to all interface
+CMD ["/opt/eap/bin/standalone.sh", "-b", "0.0.0.0"]
