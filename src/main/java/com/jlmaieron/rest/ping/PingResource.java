@@ -11,6 +11,7 @@ public class PingResource {
 
     @GET
     public String ping() {
+		System.out.println("Ping Ok!! OpenShift repo builded!");
         return "Hello World!!!!!";
     }
 
