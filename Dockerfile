@@ -20,7 +20,7 @@ RUN $JBOSS_HOME/bin/add-user.sh admin Admin1234! --silent
 #RUN mv $INSTANCE/configuration/standalone.xml $INSTANCE/configuration/standalone.xml.ori
 #RUN mv $INSTANCE $INSTANCE-ORI
 
-COPY eap/standalone/deployments/testrest.war ${DEPLOYMENT_DIR}/
+COPY target/testrest.war ${DEPLOYMENT_DIR}/
 COPY eap/standalone/deployments/testrest.war.dodeploy ${DEPLOYMENT_DIR}/
 
 
